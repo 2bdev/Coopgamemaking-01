@@ -93,23 +93,24 @@ var update_game = function(passed_time){
 		} else {
 			// Adds exp each game tick
 			experience += 10*passed_time;
-			if(experience > experience_tnl){
-				experience -= experience_tnl;
-				experience_tnl = get_experience_tnl();
-				level += 1;
-				stat_points += 2;
-				max_stat_points += 2;
-			}
 		}
 	}
 
+	if(experience > experience_tnl){
+		experience -= experience_tnl;
+		experience_tnl = get_experience_tnl();
+		level += 1;
+		stat_points += 2;
+		max_stat_points += 2;
+	}
 
 	
 	for(i=0; i<enem_length; i++) {
-		cur_health -= 1;		// TODO: change to use enemy attack power
-		health = enemies[i].gotAttacked(1); // TODO: change to use player attack power
+		playerGotAttacked(1);		// TODO: change to use enemy attack power
+		health = enemies[i].gotAttacked(strength); // TODO: change to use player attack power
 		enemies[i].update();
 		if(health <= 0) {
+			experience += 500;
 			enemies.splice(i, 1);
 		}
 	}
@@ -174,9 +175,24 @@ var spawn_enemy = function() {
 	enemies.push(enemy);
 }
 
+var playerGotAttacked = function(attackPower) {
+	// arbitrary use of defense to determine if attack was successful
+	var success = 100 - Math.abs(attackPower - defense);	// get a percent of attack success (i.e. 5)
+	var roll = getRandomInt(0, 101);							// get a random roll between 0 and 100
+	if(roll < success) {
+		cur_health -= attackPower;
+	} else {
+		console.log("Defended!");
+	}
+}
+
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
+
+// trigger enemy every 10 seconds
+setInterval(spawn_enemy, 10000);
 
 /* Checks for clicks on stat upgrades */
 

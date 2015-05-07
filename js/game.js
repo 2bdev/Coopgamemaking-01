@@ -107,7 +107,15 @@ var update_game = function(passed_time){
 	
 	for(i=0; i<enem_length; i++) {
 		playerGotAttacked(1);		// TODO: change to use enemy attack power
-		health = enemies[i].gotAttacked(strength); // TODO: change to use player attack power
+
+		// determine attack power based on dexterity and strength
+		var roll = getRandomInt(0, 101);
+		var attack = 1;
+		if(roll < dexterity) {
+			attack = strength;
+			console.log("Power Attack!");
+		}
+		health = enemies[i].gotAttacked(attack); // TODO: change to use player attack power
 		enemies[i].update();
 		if(health <= 0) {
 			experience += 500;
@@ -190,9 +198,8 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-
-// trigger enemy every 10 seconds
-setInterval(spawn_enemy, 10000);
+// trigger enemy every x seconds
+setInterval(spawn_enemy, 20000);
 
 /* Checks for clicks on stat upgrades */
 

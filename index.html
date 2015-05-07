@@ -22,55 +22,50 @@
 
 	<body>
 			<input type="hidden" id="load_id" value="">
-		<div id="advert">
-			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- GameMaking -->
-			<ins class="adsbygoogle"
-				 style="display:inline-block;width:728px;height:90px"
-				 data-ad-client="ca-pub-9866343712140984"
-				 data-ad-slot="2535597386"></ins>
-			<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
-		</div>
 
 		<div id="content-container" class="unselectable">
 			<h1>My Character</h1>
 			<div id="id-display"><span id="id-text"></span><br/><button id="toggle-id">Toggle ID</button></div>
 
-			<!-- Where stats are shown to the player -->
-			<div id="stats_container">
-
-				<!-- LEVEL -->
-				<div id="level_s" class="stat">
-					<h2>LvL <span id="level"></span></h2>
-				</div>
-				<!-- HEALTH -->
-				<div id="health_s" class="stat">
-					Health: <span id="health">460</span>
-					<span id="health_add" class="add_stat">+</span>
-				</div>
-				<!-- STRENGTH -->
-				<div id="strength_s" class="stat">
-					Strength: <span id="strength"></span>
-					<span id="strength_add" class="add_stat">+</span>
-				</div>
-				<!-- INTELLECT -->
-				<div id="intellect_s" class="stat">
-					Intellect: <span id="intellect"></span>
-					<span id="intellect_add" class="add_stat">+</span>
-				</div>
-				<!-- DEXTERITY -->
-				<div id="dexterity_s" class="stat">
-					Dexterity: <span id="dexterity"></span>
-					<span id="dexterity_add" class="add_stat">+</span>
-				</div>
-				<!-- EXPERIENCE -->
-				<div id="exp_s" class="stat">
-					EXP: <span id="exp"></span>/<span id="exp_tnl"></span>
-				</div>
-
+			<div id="level_s" class="stat">
+				<h2>LvL <span id="level"></span></h2>
 			</div>
+			
+		</div>
+		<!-- Where stats are shown to the player -->
+		<div id="stats_container">
+			
+			<!-- HEALTH -->
+			<div id="health_s" class="stat">
+				Max Health: <span id="health" class="max_health"></span>
+				<span id="health_add" class="add_stat">+</span>
+			</div>
+			<!-- STRENGTH -->
+			<div id="strength_s" class="stat">
+				Strength: <span id="strength"></span>
+				<span id="strength_add" class="add_stat">+</span>
+			</div>
+			<!-- INTELLECT -->
+			<div id="intellect_s" class="stat">
+				Intellect: <span id="intellect"></span>
+				<span id="intellect_add" class="add_stat">+</span>
+			</div>
+			<!-- DEXTERITY -->
+			<div id="dexterity_s" class="stat">
+				Dexterity: <span id="dexterity"></span>
+				<span id="dexterity_add" class="add_stat">+</span>
+			</div>
+			<!-- STAT POINTS -->
+			<div id="avail_stat_points_s" class="stat">
+				Available Stat Points: <span id="avail_stat_points"></span>
+			</div>
+			<!-- EXPERIENCE -->
+			<div id="exp_s" class="stat">
+				EXP: <span id="exp"></span>/<span id="exp_tnl"></span>
+			</div>
+
+		</div>
+		<div id="game_area">
 
 		</div>
 		<div id="buttons">

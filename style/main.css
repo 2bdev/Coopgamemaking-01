@@ -34,6 +34,10 @@ h1{
 	padding-bottom: 0;
 }
 
+#level_s h2 {
+	margin: 5px;
+}
+
 #id-display{
 	display: none;
 }
@@ -75,4 +79,17 @@ h1{
 #advert{
 	width: 728px;
 	margin: 0 auto;
+}
+
+#game_area {
+	border: 1px solid black;
+	position: relative;
+}
+
+#player {
+	border: 2px solid blue;
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	text-align: center;
 }

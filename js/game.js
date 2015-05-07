@@ -102,6 +102,7 @@ var update_game = function(passed_time){
 		level += 1;
 		stat_points += 2;
 		max_stat_points += 2;
+		displayMessage("Level up!");
 	}
 
 	
@@ -113,7 +114,7 @@ var update_game = function(passed_time){
 		var attack = 1;
 		if(roll < dexterity) {
 			attack = strength;
-			console.log("Power Attack!");
+			displayMessage("Power Attack!");
 		}
 		health = enemies[i].gotAttacked(attack); // TODO: change to use player attack power
 		enemies[i].update();
@@ -190,8 +191,12 @@ var playerGotAttacked = function(attackPower) {
 	if(roll < success) {
 		cur_health -= attackPower;
 	} else {
-		console.log("Defended!");
+		displayMessage("Defended!");
 	}
+}
+
+var displayMessage = function(message) {
+	$("#messages p").text(message).show().fadeOut(1000);
 }
 
 function getRandomInt(min, max) {

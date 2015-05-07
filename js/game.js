@@ -80,19 +80,32 @@ var update_stats = function(){
 
 var update_game = function(passed_time){
 		
-	// only add experience if health is full
+	var enem_length = enemies.length;
+
+	// only add experience if health is full and no enemies
 	// otherwise heal player until full health
-	if(cur_health < max_health) {
-		cur_health++;
-	} else {
-		// Adds exp each game tick
-		experience += 10*passed_time;
-		if(experience > experience_tnl){
-			experience -= experience_tnl;
-			experience_tnl = get_experience_tnl();
-			level += 1;
-			stat_points += 2;
-			max_stat_points += 2;
+	if(enem_length == 0) {
+		if(cur_health < max_health) {
+			cur_health++;
+		} else {
+			// Adds exp each game tick
+			experience += 10*passed_time;
+			if(experience > experience_tnl){
+				experience -= experience_tnl;
+				experience_tnl = get_experience_tnl();
+				level += 1;
+				stat_points += 2;
+				max_stat_points += 2;
+			}
+		}
+	}
+	
+	for(i=0; i<enem_length; i++) {
+		cur_health -= 1;		// TODO: change to use enemy attack power
+		health = enemies[i].gotAttacked(1); // TODO: change to use player attack power
+		enemies[i].update();
+		if(health <= 0) {
+			enemies.splice(i, 1);
 		}
 	}
 
@@ -135,11 +148,17 @@ var init_game_area = function() {
 	$("#game_area").append('<div id="player"><span class="cur_health">'+cur_health+'</span>/<span class="max_health">'+max_health+'</span></div>');
 	$("#player").css("bottom", 20);
 	$("#player").css("left", (game_width / 2) - (char_width / 2));
+	$("#player").css("height", char_height);
+	$("#player").css("width", char_width);
 	
 }
 
 var spawn_enemy = function() {
-
+	var enemy = new Enemy();
+	var elem = $('<div class="enemy" style="height: '+char_height+'px; width: '+char_width+'px"><span class="enem_cur_health">'+enemy.curHealth+'</span>/<span class="enem_max_health">'+enemy.maxHealth+'</span></div>');
+	$("#game_area").append(elem);
+	enemy.setElement(elem);
+	enemies.push(enemy);
 }
 
 /* Checks for clicks on stat upgrades */

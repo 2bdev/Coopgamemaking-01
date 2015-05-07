@@ -4,8 +4,10 @@
 var max_health = 100;
 var cur_health = max_health;
 var strength = 1;
+var defense = 1;
 var intellect = 1;
 var dexterity = 1;
+
 // Level control
 var level = 1;
 var experience = 0;
@@ -70,6 +72,7 @@ var update_stats = function(){
 	$(".max_health").html(max_health);
 	$(".cur_health").html(cur_health);
 	$("#strength").html(strength);
+	$("#defense").html(defense);
 	$("#intellect").html(intellect);
 	$("#dexterity").html(dexterity);
 	$("#avail_stat_points").html(stat_points);
@@ -99,6 +102,8 @@ var update_game = function(passed_time){
 			}
 		}
 	}
+
+
 	
 	for(i=0; i<enem_length; i++) {
 		cur_health -= 1;		// TODO: change to use enemy attack power
@@ -154,11 +159,23 @@ var init_game_area = function() {
 }
 
 var spawn_enemy = function() {
+	// randomly generate position
+	var top = getRandomInt(0, game_height - char_height);
+	var left = getRandomInt(0, game_height - char_width);
+
 	var enemy = new Enemy();
-	var elem = $('<div class="enemy" style="height: '+char_height+'px; width: '+char_width+'px"><span class="enem_cur_health">'+enemy.curHealth+'</span>/<span class="enem_max_health">'+enemy.maxHealth+'</span></div>');
+	var elem = $('<div class="enemy"><span class="enem_cur_health">'+enemy.curHealth+'</span>/<span class="enem_max_health">'+enemy.maxHealth+'</span></div>');
+	elem.css("height", char_height);
+	elem.css("width", char_width);
+	elem.css("top", top);
+	elem.css("left", left);
 	$("#game_area").append(elem);
 	enemy.setElement(elem);
 	enemies.push(enemy);
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 /* Checks for clicks on stat upgrades */
@@ -167,6 +184,14 @@ var spawn_enemy = function() {
 $("#health_add").click(function(){
 	if(can_level_stats){
 		max_health += 10;
+		stat_points -= 1;
+		check_stat_points();
+	}
+});
+
+$("#defense_add").click(function(){
+	if(can_level_stats){
+		defense += 1;
 		stat_points -= 1;
 		check_stat_points();
 	}
